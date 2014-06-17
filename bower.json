@@ -1,0 +1,8 @@
+{
+  "name": "dynamic-quiz",
+  "private": true,
+  "dependencies": {
+    "jquery": "latest"
+  },
+  "devDependencies": {}
+}
