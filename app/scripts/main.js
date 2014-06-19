@@ -1,21 +1,104 @@
-var allQuestions = [
-    {
-        question: 'Who is Prime Minister of the United Kingdom?',
-        choices: ['David Cameron', 'Gordon Brown', 'Winston Churchill', 'Tony Blair'],
-        correctAnswer: 0
-    },
-    {
-        question: 'Which pop duo was the first western band to play in The Peoples Republic of China?',
-        choices: ['Wham', 'Simon and Garfunkel', 'Chas and Dave', 'Right Said Fred'],
-        correctAnswer: 0
-    },
-    {
-        question: 'Timber selected from how many fully grown oak trees were needed to build a large 3 decker Royal Navy battle ship in the 18th century?',
-        choices: ['50', '500', '1500', '3500'],
-        correctAnswer: 0
-    }
-];
+'use strict';
 
+var answers = [];
+
+/*
+    Function to display the questions
+ */
+function askQuestion(quizData, currentQuestion) {
+
+    $('#quiz').empty();
+
+    $('#quiz').append('<h3>' + quizData[currentQuestion].question + '</h3>');
+    for (var iChoice in quizData[currentQuestion].choices) {
+        var iChoiceVal = quizData[currentQuestion].choices[iChoice];
+        $('#quiz')
+            .append(
+                '<input type="radio" name="choices" id="choice' + iChoice + '" value="' + iChoice + '">' +
+                '<label for=choice' + iChoice + '>' + iChoiceVal + '</label><br>'
+        );
+    }
+
+    /*
+        If choice has been already made, show it (for ex. in case of Prev/Next navigation)
+     */
+    if(answers[currentQuestion]) {
+        var id = '#' + answers[currentQuestion];
+        $(id).attr('checked', 'checked');
+    }
+
+    /*
+        Handle choice selection
+     */
+    $('input[name=choices]').click(function(e){
+        answers[currentQuestion] = e.target.id;
+    });
+
+}
+
+
+/*
+    On document ready
+ */
 $(function(){
-    console.log('loaded doc');
+
+    var currentQuestion = 0;
+    var quizData;
+
+
+    /*
+        Get the quiz data
+     */
+    $.getJSON('data/australian-citizenship.json', function(data) {
+        quizData = data;
+        askQuestion(quizData, currentQuestion);
+    });
+
+
+    /*
+        Register click event for previous and next buttons
+     */
+    $('#prevButton, #nextButton').on('click', function(e) {
+
+        /*
+            Check if question has been answered
+         */
+        if(e.target.id === 'nextButton' && !answers[currentQuestion]) {
+            $('#error').remove();
+            $('#quiz').append('<p id="error">Please, answer this question first!</p>');
+            return;
+        }
+
+        /*
+            Handle Next/Previous buttons
+         */
+        if(e.target.id === 'nextButton' && quizData[currentQuestion + 1]) {
+            currentQuestion++;
+            askQuestion(quizData, currentQuestion);
+        } else if(e.target.id === 'prevButton' && quizData[currentQuestion - 1]) {
+            currentQuestion--;
+            askQuestion(quizData, currentQuestion);
+        }
+
+        /*
+            Enable/Disable buttons at the start/end
+         */
+        switch(currentQuestion) {
+            //the first
+            case 0:
+                $('#prevButton').attr('disabled', 'disabled');
+                break;
+
+            //the last
+            case quizData.length - 1:
+                $('#nextButton').attr('disabled', 'disabled');
+                break;
+
+            //somewhere in between
+            default:
+                $('#prevButton, #nextButton').removeAttr('disabled');
+
+        }
+    });
+
 });
