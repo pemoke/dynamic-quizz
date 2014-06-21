@@ -1,0 +1,6 @@
+<h3>{{question}}</h3>
+{{#each choices}}
+    <input type="radio" name="choices" id="choice{{@index}}" value="">
+    <label for="choice{{@index}}">{{this}}</label>
+    <br>
+{{/each}}

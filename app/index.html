@@ -20,8 +20,18 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+
         <form>
-            <div id="quiz"></div>
+            <div id="quiz">
+                 <script id="quiz-template" type="text/x-handlebars-template">
+                    <h3>{{question}}</h3>
+                    {{#each choices}}
+                        <input type="radio" name="choices" id="choice{{@index}}" value="">
+                        <label for="choice{{@index}}">{{this}}</label>
+                        <br>
+                    {{/each}}
+                </script>
+            </div>
             <input type="button" value="Previous" id="prevButton" disabled="disabled">
             <input type="button" value="Next" id="nextButton">
         </form>
@@ -29,7 +39,7 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/handlebars/handlebars.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

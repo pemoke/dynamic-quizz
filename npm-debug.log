@@ -1,0 +1,34 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/Users/petermarko/.nvm/v0.10.21/bin/npm',
+1 verbose cli   'update',
+1 verbose cli   '-g',
+1 verbose cli   'bower' ]
+2 info using npm@1.4.15
+3 info using node@v0.10.21
+4 verbose url raw bower
+5 verbose url resolving [ 'https://registry.npmjs.org/', './bower' ]
+6 verbose url resolved https://registry.npmjs.org/bower
+7 info trying registry request attempt 1 at 14:59:17
+8 verbose etag "BCK0XJYDWRKGOJGN3OA02VGBJ"
+9 http GET https://registry.npmjs.org/bower
+10 verbose url raw bower
+11 verbose url resolving [ 'https://registry.npmjs.org/', './bower' ]
+12 verbose url resolved https://registry.npmjs.org/bower
+13 info trying registry request attempt 1 at 14:59:17
+14 verbose etag "BCK0XJYDWRKGOJGN3OA02VGBJ"
+15 http GET https://registry.npmjs.org/bower
+16 info outdated updating []
+17 error Error: EMFILE, readdir '/Users/petermarko/.nvm/v0.10.21/lib/node_modules/steroids/node_modules/karma/node_modules/useragent'
+18 error If you need help, you may report this *entire* log,
+18 error including the npm and node versions, at:
+18 error     <http://github.com/npm/npm/issues>
+19 error System Darwin 13.2.0
+20 error command "node" "/Users/petermarko/.nvm/v0.10.21/bin/npm" "update" "-g" "bower"
+21 error cwd /Users/petermarko/Sites/dynamic-quiz
+22 error node -v v0.10.21
+23 error npm -v 1.4.15
+24 error path /Users/petermarko/.nvm/v0.10.21/lib/node_modules/steroids/node_modules/karma/node_modules/useragent
+25 error code EMFILE
+26 error errno 20
+27 verbose exit [ 20, true ]
